@@ -1,0 +1,53 @@
+﻿<Window x:Class="StaffApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StaffApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button Name="bcleaner" Content="Cleaner" HorizontalAlignment="Left" Margin="80,71,0,0" VerticalAlignment="Top" Height="77" Width="148" FontSize="24" Foreground="#FF760041" BorderBrush="#FF760041" Click="bcleaner_Click" >
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFFCE1F0"/>
+                    <GradientStop Color="#FFC6036E" Offset="1"/>
+                    <GradientStop Color="#FFE9C4D9" Offset="0.327"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="bservice" Content="Service" HorizontalAlignment="Left" Margin="570,71,0,0" VerticalAlignment="Top" Height="77" Width="148" FontSize="24" Foreground="#FF007603" BorderBrush="#FF007603" Click="bservice_Click" >
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFDDF6DE"/>
+                    <GradientStop Color="#FF56DA59" Offset="1"/>
+                    <GradientStop Color="#FFA6F7A8" Offset="0.327"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="bmaintenance" Content="Maintenance" HorizontalAlignment="Center" Margin="0,71,0,0" VerticalAlignment="Top" Height="77" Width="148" FontSize="24" Foreground="#FF0B5C65" BorderBrush="#FF0B5C65" Click="bmaintenance_Click" >
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFE1F9FC"/>
+                    <GradientStop Color="#FF4FBCC9" Offset="1"/>
+                    <GradientStop Color="#FF9CECF6" Offset="0.327"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        
+        <TextBox Name="tnote" HorizontalAlignment="Center" Margin="0,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="490" Height="112"/>
+        <Label Content="Staff Note:" HorizontalAlignment="Left" Margin="80,240,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button Content="Add Note" HorizontalAlignment="Left" Margin="550,376,0,0" VerticalAlignment="Top" Height="31" Width="94" Click="badd_Click"/>
+        
+        <ComboBox Name="comboboxCategory" HorizontalAlignment="Left" Margin="221,198,0,0" VerticalAlignment="Top" Width="179" Height="26">
+            <ComboBoxItem Content="Cleaner" />
+            <ComboBoxItem Content="Maintenance" />
+            <ComboBoxItem Content="Service" />
+        </ComboBox>
+
+        <Label Content="Category:" HorizontalAlignment="Left" Margin="155,198,0,0" VerticalAlignment="Top" Height="26"/>
+        <Label Content="Room:" HorizontalAlignment="Left" Margin="417,198,0,0" VerticalAlignment="Top" Height="26"/>
+        <TextBox Name="troomnumber" HorizontalAlignment="Left" Margin="466,198,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Height="26" FontSize="16" Text=""/>
+
+    </Grid>
+</Window>

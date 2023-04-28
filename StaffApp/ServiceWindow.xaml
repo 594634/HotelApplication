@@ -1,0 +1,24 @@
+﻿<Window x:Class="StaffApp.ServiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StaffApp"
+        mc:Ignorable="d"
+        Title="ServiceWindow" Height="450" Width="800">
+    <Grid Background="#FFAEF7B0">
+
+        <ListView Name="serviceList" ItemsSource="{Binding}" Margin="74,43,421,43" >
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Width="100" Header="Room Number" DisplayMemberBinding="{Binding Path=RoomNumber}" />
+                        <GridViewColumn Width="200" Header="Notes" DisplayMemberBinding="{Binding Path=Note1}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="bfixed"  Content="Fixed" HorizontalAlignment="Left" Margin="400,131,0,0" VerticalAlignment="Top" Height="38" Width="100" FontSize="20" Background="#FF237925" BorderBrush="#FFF6F6F6" Foreground="#FFF6F6F6" Click="bfixed_Click"/>
+
+    </Grid>
+</Window>

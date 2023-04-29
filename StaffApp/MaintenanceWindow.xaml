@@ -13,12 +13,13 @@
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Width="100" Header="Room Number" DisplayMemberBinding="{Binding Path=RoomNumber}" />
-                        <GridViewColumn Width="200" Header="Note" DisplayMemberBinding="{Binding Path=Note1}" />
+                        <GridViewColumn Width="200" Header="Note" DisplayMemberBinding="{Binding Path=Message}" />
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
         </ListView>
         <Label Content="Maintenance Notes:" HorizontalAlignment="Left" Margin="49,37,0,0" VerticalAlignment="Top" Width="129"/>
+        <Button x:Name="breload"  Content="Reload" HorizontalAlignment="Left" Margin="400,80,0,0" VerticalAlignment="Top" Height="38" Width="100" FontSize="20" Background="#FF42838C" BorderBrush="#FFF6F6F6" Foreground="#FFF6F6F6" Click="breload_Click"/>
         <Button x:Name="bfixed"  Content="Fixed" HorizontalAlignment="Left" Margin="400,130,0,0" VerticalAlignment="Top" Height="38" Width="100" FontSize="20" Background="#FF42838C" BorderBrush="#FFF6F6F6" Foreground="#FFF6F6F6" Click="bfixed_Click"/>
 
     </Grid>

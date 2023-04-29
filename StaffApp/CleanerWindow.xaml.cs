@@ -14,6 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using no.hvl.DAT154.GROUP14.Hotel.API.Client;
+using no.hvl.DAT154.GROUP14.Hotel.API.Common;
+using no.hvl.DAT154.GROUP14.Hotel.API.Common.Model;
 
 namespace StaffApp
 {
@@ -22,56 +25,60 @@ namespace StaffApp
     /// </summary>
     public partial class CleanerWindow : Window
     {
-        public Demo1234Context dx = new();
-        public Demo1234Context dc { get; set; }
+        private readonly Client client;
 
-        private readonly LocalView<Room> Rooms;
-        private readonly LocalView<Note> Notes;
+        private List<RoomDTO> Rooms;
+        private List<NoteDTO> Notes;
 
+        public CleanerWindow(Client client)
+        {
+            InitializeComponent();
+            this.client = client;
+
+            load();
+
+        }
+
+        private async Task load() {
+            Rooms = (await client.roomController.GetAll()).ToList();
+            Notes = (await client.noteController.GetAll()).ToList();
+
+            updateView();
+        }
+        
         private void updateView()
         {
-            dx.Rooms.Load();
-            dx.Notes.Load();
             cleanList.DataContext = Rooms.OrderBy(r => r.RoomNumber).Where(x => x.ToBeCleaned == true);
             noteList.DataContext = Notes.OrderBy(n => n.RoomNumber).Where(x => x.NoteType.ToString() == "Cleaner");
         }
-        public CleanerWindow()
-        {
-            InitializeComponent();
-            Rooms = dx.Rooms.Local;
-            Notes = dx.Notes.Local;
+
+        private void bfixed_Click(object sender, RoutedEventArgs e) {
+            if (noteList.SelectedItem is not NoteDTO note)
+                return; 
+            client.noteController.Delete(note.NoteId.Value);
+            Notes.Remove(note);
+            
             updateView();
-
-
         }
 
-        private void bfixed_Click(object sender, RoutedEventArgs e)
-        {
-            Note n = noteList.SelectedItem as Note;
-            Note dbNote = Notes.Where(no => no.NoteId == n.NoteId).First();
-            dx.Notes.Remove(dbNote);
-            dx.SaveChanges();
-            updateView();
-
-        }
-
-        private void bcleaned_Click(object sender, RoutedEventArgs e)
-        {
-            Room r = cleanList.SelectedItem as Room;
-            Room dbRoom = Rooms.Where(ro => ro.RoomNumber == r.RoomNumber).First();
+        private void bcleaned_Click(object sender, RoutedEventArgs e) {
+            if (cleanList.SelectedItem is not RoomDTO room)
+                return;
 
             string cbstatus = (comboboxStatus.SelectedValue as ComboBoxItem).Content as string;
-            dbRoom.Status = cbstatus;
+            room.Status = cbstatus;
 
             if(cbstatus == "Finished")
-            {
-                dbRoom.ToBeCleaned = false;
-            }
+                room.ToBeCleaned = false;
+
+            client.roomController.Update(room);
             
-            dx.Rooms.Update(dbRoom);
-            dx.SaveChanges();
             updateView();
 
+        }
+
+        private void breload_Click(object sender, RoutedEventArgs e) {
+            load();
         }
     }
 }

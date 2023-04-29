@@ -25,7 +25,7 @@
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Width="100" Header="Room Number" DisplayMemberBinding="{Binding Path=RoomNumber}" />
-                        <GridViewColumn Width="200" Header="Note" DisplayMemberBinding="{Binding Path=Note1}" />
+                        <GridViewColumn Width="200" Header="Note" DisplayMemberBinding="{Binding Path=Message}" />
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
@@ -34,7 +34,8 @@
         <Label Content="Notes for Cleaning Staff:" HorizontalAlignment="Left" Margin="29,25,0,0" VerticalAlignment="Top" Width="180"/>
         <Label Content="Checked Out:" HorizontalAlignment="Left" Margin="533,25,0,0" VerticalAlignment="Top" Width="103"/>
         <Label Content="Change Status:" HorizontalAlignment="Left" Margin="762,25,0,0" VerticalAlignment="Top" Width="103"/>
-
+        
+        <Button Name="breload"  Content="Reload" HorizontalAlignment="Left" Margin="360,80,0,0" VerticalAlignment="Top" Height="38" Width="100" FontSize="20" Background="#FF9A507A" BorderBrush="#FFF6F6F6" Foreground="#FFF6F6F6" Click="breload_Click"/>
         <Button Name="bfixed"  Content="Fixed" HorizontalAlignment="Left" Margin="360,129,0,0" VerticalAlignment="Top" Height="38" Width="100" FontSize="20" Background="#FF9A507A" BorderBrush="#FFF6F6F6" Foreground="#FFF6F6F6" Click="bfixed_Click"/>
         <Button Name="bcleaned" Content="Update" HorizontalAlignment="Left" Margin="762,129,0,0" VerticalAlignment="Top" Height="38" Width="100" FontSize="20" Background="#FF9A507A" BorderBrush="White" Foreground="White" Click="bcleaned_Click"/>
 

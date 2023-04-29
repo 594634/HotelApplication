@@ -15,7 +15,8 @@ using System.Windows.Shapes;
 using HotelLibrary;
 using HotelLibrary.Models;
 using Microsoft.EntityFrameworkCore;
-using static Azure.Core.HttpHeader;
+using no.hvl.DAT154.GROUP14.Hotel.API.Client;
+using no.hvl.DAT154.GROUP14.Hotel.API.Common.Model;
 
 namespace StaffApp
 {
@@ -25,46 +26,37 @@ namespace StaffApp
     public partial class MainWindow : Window
     {
         private readonly Demo1234Context dx = new();
+        private readonly Client client;
 
         public MainWindow()
         {
             InitializeComponent();
+            client = new Client("http://localhost:5241");
         }
 
-        private void bcleaner_Click(object sender, RoutedEventArgs e)
-        {
-            CleanerWindow cw = new()
-            {
-                dc = dx
-            };
+        private void bcleaner_Click(object sender, RoutedEventArgs e) {
+            CleanerWindow cw = new(client);
             cw.Show();
         }
 
-        private void bmaintenance_Click(object sender, RoutedEventArgs e)
-        {
-            MaintenanceWindow mw = new()
-            {
-                dm = dx
-            };
+        private void bmaintenance_Click(object sender, RoutedEventArgs e) {
+            MaintenanceWindow mw = new(client);
             mw.Show();
         }
 
-        private void bservice_Click(object sender, RoutedEventArgs e)
-        {
-            ServiceWindow sw = new()
-            {
-                ds = dx
-            };
+        private void bservice_Click(object sender, RoutedEventArgs e) {
+            ServiceWindow sw = new(client);
             sw.Show();
         }
 
         private void badd_Click(object sender, RoutedEventArgs e)
-        {       
-            
-            Note n = WPFwindow.NewNote(tnote.Text, int.Parse(troomnumber.Text), (comboboxCategory.SelectedValue as ComboBoxItem).Content as string);
-
-            dx.Notes.Add(n);
-            dx.SaveChanges();
+        {
+            NoteDTO note = new(){
+                Message = tnote.Text, 
+                RoomNumber = int.Parse(troomnumber.Text), 
+                NoteType = (comboboxCategory.SelectedValue as ComboBoxItem).Content as string
+            };
+            client.noteController.Add(note);
         }
     }
 

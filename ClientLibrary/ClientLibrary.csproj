@@ -5,6 +5,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>no.hvl.DAT154.GROUP14.Hotel</RootNamespace>
     </PropertyGroup>
 
 </Project>

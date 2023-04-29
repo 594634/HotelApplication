@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Net;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Web;
 using no.hvl.DAT154.GROUP14.Hotel.API.Common;
@@ -55,9 +56,9 @@ public class RoomController {
         return JsonSerializer.Deserialize<RoomDTO>(await message.Content.ReadAsStreamAsync());
     }
 
-    public async Task<RoomDTO?> Add(RoomDTO user) {
-        const string path = "api/room";
-        HttpResponseMessage message = await client.PostAsync(path, new StringContent(JsonSerializer.Serialize(user)));
+    public async Task<RoomDTO?> Add(RoomDTO room) {
+        string path = "api/room";
+        HttpResponseMessage message = await client.PostAsJsonAsync(path, room);
 
         if (!message.IsSuccessStatusCode)
             throw new APIException(message.ReasonPhrase!, message.StatusCode);
@@ -65,9 +66,9 @@ public class RoomController {
         return JsonSerializer.Deserialize<RoomDTO>(await message.Content.ReadAsStreamAsync());
     }
 
-    public async Task<RoomDTO?> Update(RoomDTO user) {
-        const string path = "api/room";
-        HttpResponseMessage message = await client.PutAsync(path, new StringContent(JsonSerializer.Serialize(user)));
+    public async Task<RoomDTO?> Update(RoomDTO room) {
+        string path = $"api/room/{room.RoomNumber}";
+        HttpResponseMessage message = await client.PutAsJsonAsync(path, room);//.PutAsync(path, new StringContent(JsonSerializer.Serialize(room)));
 
         if (!message.IsSuccessStatusCode)
             throw new APIException(message.ReasonPhrase!, message.StatusCode);

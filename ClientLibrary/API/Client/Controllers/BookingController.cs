@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using no.hvl.DAT154.GROUP14.Hotel.API.Common;
 using no.hvl.DAT154.GROUP14.Hotel.API.Common.Model;
 
@@ -32,9 +33,9 @@ public class BookingController {
         return JsonSerializer.Deserialize<BookingDTO>(await message.Content.ReadAsStreamAsync());
     }
 
-    public async Task<BookingDTO?> Add(BookingDTO user) {
-        const string path = "api/booking";
-        HttpResponseMessage message = await client.PostAsync(path, new StringContent(JsonSerializer.Serialize(user)));
+    public async Task<BookingDTO?> Add(BookingDTO booking) {
+        string path = "api/booking";
+        HttpResponseMessage message = await client.PostAsJsonAsync(path, booking);
 
         if (!message.IsSuccessStatusCode)
             throw new APIException(message.ReasonPhrase!, message.StatusCode);
@@ -42,9 +43,9 @@ public class BookingController {
         return JsonSerializer.Deserialize<BookingDTO>(await message.Content.ReadAsStreamAsync());
     }
 
-    public async Task<BookingDTO?> Update(BookingDTO user) {
-        const string path = "api/booking";
-        HttpResponseMessage message = await client.PutAsync(path, new StringContent(JsonSerializer.Serialize(user)));
+    public async Task<BookingDTO?> Update(BookingDTO booking) {
+        string path = $"api/booking/{booking.Id}";
+        HttpResponseMessage message = await client.PutAsJsonAsync(path, booking);
 
         if (!message.IsSuccessStatusCode)
             throw new APIException(message.ReasonPhrase!, message.StatusCode);

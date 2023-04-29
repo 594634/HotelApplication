@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Web;
 using no.hvl.DAT154.GROUP14.Hotel.API.Common;
@@ -48,7 +49,7 @@ public class NoteController {
             throw new APIException("Query is empty", HttpStatusCode.BadRequest);
 
         
-        string path = $"api/note/query?{query}";
+        string path = $"api/note/search?{query}";
         HttpResponseMessage message = await client.GetAsync(path);
 
         if (!message.IsSuccessStatusCode)
@@ -57,9 +58,9 @@ public class NoteController {
         return JsonSerializer.Deserialize<NoteDTO>(await message.Content.ReadAsStreamAsync());
     }
 
-    public async Task<NoteDTO?> Add(NoteDTO user) {
+    public async Task<NoteDTO?> Add(NoteDTO note) {
         const string path = "api/note";
-        HttpResponseMessage message = await client.PostAsync(path, new StringContent(JsonSerializer.Serialize(user)));
+        HttpResponseMessage message = await client.PostAsJsonAsync(path, note);
 
         if (!message.IsSuccessStatusCode)
             throw new APIException(message.ReasonPhrase!, message.StatusCode);
@@ -67,9 +68,9 @@ public class NoteController {
         return JsonSerializer.Deserialize<NoteDTO>(await message.Content.ReadAsStreamAsync());
     }
 
-    public async Task<NoteDTO?> Update(NoteDTO user) {
-        const string path = "api/note";
-        HttpResponseMessage message = await client.PutAsync(path, new StringContent(JsonSerializer.Serialize(user)));
+    public async Task<NoteDTO?> Update(NoteDTO note) {
+        string path = $"api/note/{note.NoteId}";
+        HttpResponseMessage message = await client.PutAsJsonAsync(path, note);
 
         if (!message.IsSuccessStatusCode)
             throw new APIException(message.ReasonPhrase!, message.StatusCode);
@@ -78,7 +79,7 @@ public class NoteController {
     }
 
     public async Task<NoteDTO?> Delete(int id) {
-        string path = $"api/note{id}";
+        string path = $"api/note/{id}";
         HttpResponseMessage message = await client.DeleteAsync(path);
 
         if (!message.IsSuccessStatusCode)

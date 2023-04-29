@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using no.hvl.DAT154.GROUP14.Hotel.API.Common;
 using no.hvl.DAT154.GROUP14.Hotel.API.Common.Model;
 
@@ -33,18 +34,18 @@ public class UserController {
     }
 
     public async Task<UserDTO?> Add(UserDTO user) {
-        const string path = "api/user";
-        HttpResponseMessage message = await client.PostAsync(path, new StringContent(JsonSerializer.Serialize(user)));
+        string path = "api/user";
+        HttpResponseMessage message = await client.PostAsJsonAsync(path, user);
 
         if (!message.IsSuccessStatusCode)
-            throw new APIException(message.ReasonPhrase!, message.StatusCode);
+            throw new APIException(await message.Content.ReadAsStringAsync(), message.StatusCode);
         
         return JsonSerializer.Deserialize<UserDTO>(await message.Content.ReadAsStreamAsync());
     }
 
     public async Task<UserDTO?> Update(UserDTO user) {
-        const string path = "api/user";
-        HttpResponseMessage message = await client.PutAsync(path, new StringContent(JsonSerializer.Serialize(user)));
+        string path = $"api/user/{user.PhoneNumber}";
+        HttpResponseMessage message = await client.PutAsJsonAsync(path, user);
 
         if (!message.IsSuccessStatusCode)
             throw new APIException(message.ReasonPhrase!, message.StatusCode);

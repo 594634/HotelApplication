@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffApp", "StaffApp\StaffA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResepsjonWinForm", "ResepsjonWinForm\ResepsjonWinForm.csproj", "{06D0147F-F400-443A-9BB3-DECC1FDF487D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientLibrary", "ClientLibrary\ClientLibrary.csproj", "{F73E4AF8-8538-4309-8904-CEF5B6358925}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{06D0147F-F400-443A-9BB3-DECC1FDF487D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06D0147F-F400-443A-9BB3-DECC1FDF487D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06D0147F-F400-443A-9BB3-DECC1FDF487D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73E4AF8-8538-4309-8904-CEF5B6358925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73E4AF8-8538-4309-8904-CEF5B6358925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73E4AF8-8538-4309-8904-CEF5B6358925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73E4AF8-8538-4309-8904-CEF5B6358925}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

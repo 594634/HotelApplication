@@ -14,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using no.hvl.DAT154.GROUP14.Hotel.API.Client;
+using no.hvl.DAT154.GROUP14.Hotel.API.Common.Model;
 using static Azure.Core.HttpHeader;
 
 namespace StaffApp
@@ -23,30 +25,41 @@ namespace StaffApp
     /// </summary>
     public partial class MaintenanceWindow : Window
     {
-        private readonly Demo1234Context dx = new();
-        public Demo1234Context dm { get; set; }
 
-        private readonly LocalView<Note> Notes;
+        private readonly Client client;
 
-        private void updateView()
-        {
-            dx.Notes.Load();
-            maintenanceList.DataContext = Notes.OrderBy(n => n.RoomNumber).Where(x => x.NoteType.ToString() == "Maintenance");
-        }
-        public MaintenanceWindow()
+        private List<NoteDTO> Notes;
+
+        public MaintenanceWindow(Client client)
         {
             InitializeComponent();
-            Notes = dx.Notes.Local;
+            this.client = client;
+
+            load();
+        }
+
+        private async Task load() {
+            Notes = (await client.noteController.GetAll()).ToList();
+            updateView();
+        }
+        
+        private void updateView()
+        {
+            maintenanceList.DataContext = Notes.OrderBy(n => n.RoomNumber).Where(x => x.NoteType.ToString() == "Maintenance");
+        }
+
+        private void bfixed_Click(object sender, RoutedEventArgs e) {
+            if (maintenanceList.SelectedItem is not NoteDTO note)
+                return;
+
+            client.noteController.Delete(note.NoteId.Value);
+            Notes.Remove(note);
+            
             updateView();
         }
 
-        private void bfixed_Click(object sender, RoutedEventArgs e)
-        {
-            Note n = maintenanceList.SelectedItem as Note;
-            Note dbNote = Notes.Where(no => no.NoteId == n.NoteId).First();
-            dx.Notes.Remove(dbNote);
-            dx.SaveChanges();
-            updateView();
+        private void breload_Click(object sender, RoutedEventArgs e) {
+            load();
         }
     }
 }
